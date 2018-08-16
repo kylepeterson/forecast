@@ -11,17 +11,17 @@ const propTypes = {
 };
 
 const defaultProps = {
-  date: 'Today',
+  date: '1/1',
   high: 0,
   low: 0,
-  weather: 'Sunny',
+  weather: 'sunny',
   metric: true,
 };
 
 class WeatherSnippet extends React.Component {
   renderTemperature(temp) {
     const unit = this.props.metric ? `\u2103` : `\u2109`;
-    return `${Math.round(temp)}${unit}`
+    return `${Math.round(temp)}${unit}`;
   }
 
   render() {

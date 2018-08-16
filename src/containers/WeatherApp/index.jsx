@@ -18,7 +18,7 @@ class WeatherApp extends React.Component {
     this.state = {
       dayToDetails: {},
       loading: true,
-      metric: true
+      metric: true,
     };
 
     this.handleToggle = this.handleToggle.bind(this);
@@ -29,7 +29,10 @@ class WeatherApp extends React.Component {
   }
 
   fetchForecast() {
-    const url = `${URL}&units=${this.state.metric ? 'metric' : 'imperial'}`;
+    const currentHour = new Date().getHours();
+    // Get 32 results for next 4 days (4 * 8) and add results for remainder of today (24 - now) / 3
+    const count = Math.round(32 + (24 - currentHour) / 3);
+    const url = `${URL}&units=${this.state.metric ? 'metric' : 'imperial'}&cnt=${count}`;
 
     fetch(url)
       .then(results => results.json())
@@ -47,7 +50,7 @@ class WeatherApp extends React.Component {
     const key = `${date.getDate()}/${date.getMonth() + 1}`;
     const details = {
       ...hourlyResult['main'],
-      weather: hourlyResult['weather'][0] // first weather result in primary according to docs
+      weather: hourlyResult['weather'][0], // first weather result in primary according to docs
     };
 
     if (!(key.toString() in dayToDetails)) {
@@ -83,14 +86,15 @@ class WeatherApp extends React.Component {
       return counts;
     }, {});
 
-    const sorted = Object.values(weatherCounts).sort((a, b) => weatherCounts[b] - weatherCounts[a]);
+    const sorted = Object.values(weatherCounts)
+                         .sort((a, b) => weatherCounts[b] - weatherCounts[a]);
     return sorted[0];
   }
 
   handleToggle() {
     this.setState((state) => {
       return { metric: !state.metric, loading: true }
-    }, this.fetchForecast)
+    }, this.fetchForecast);
   }
 
   // TODO Implement a better loading state
@@ -106,8 +110,8 @@ class WeatherApp extends React.Component {
       const iconUrl = `http://openweathermap.org/img/w/${dayWeather['icon']}.png`;
       return <WeatherSnippet
           date={date}
-          low={this.getDailyMinTemp(details)}
-          high={this.getDailyMaxTemp(details)}
+          low={this.getDailyMinTemp(dayDetails)}
+          high={this.getDailyMaxTemp(dayDetails)}
           weather={dayWeather['description']}
           iconUrl={iconUrl}
           metric={this.state.metric}

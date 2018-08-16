@@ -21,13 +21,13 @@ class TemperatureUnitSelector extends Component {
 
   handleMetricClick() {
     if(!this.props.metric) {
-      this.props.onToggle()
+      this.props.onToggle();
     }
   }
 
   handleImperialClick() {
     if (this.props.metric) {
-      this.props.onToggle()
+      this.props.onToggle();
     }
   }
 
