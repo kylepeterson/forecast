@@ -9,7 +9,7 @@ const COUNTRY = 'us';
 
 //TODO Store as a secret in s3
 const API_KEY = '7f9c5c959d2b01c132739ed2a3024805';
-const FORECAST_ENDPOINT = 'http://api.openweathermap.org/data/2.5/forecast';
+const FORECAST_ENDPOINT = 'https://api.openweathermap.org/data/2.5/forecast';
 const URL = `${FORECAST_ENDPOINT}?q=${CITY},${COUNTRY}&appid=${API_KEY}`;
 
 class WeatherApp extends React.Component {
