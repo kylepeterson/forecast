@@ -1,0 +1,115 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.weather-app {
+  font-family: 'Cabin'  , sans-serif;
+  color: #222;
+  text-align: center;
+}
+
+.weather-app__header {
+  background-color: #222;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.weather-app__header__title {
+  font-size: 45px;
+  text-transform: capitalize;
+}
+
+.weather-app__container {
+  padding: 2em;
+}
+
+.weather-app__snippets {
+  display: flex;
+  justify-content: space-around;
+}
+
+.weather-snippet {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.weather-snippet__date {
+  font-size: 35px;
+}
+
+.weather-snippet__temps__high {
+  font-size: 35px;
+  padding-bottom: 10px;
+}
+
+.weather-snippet__temps__low {
+  font-size: 24px;
+  color: #999;
+  padding-bottom: 20px;
+}
+
+.weather-snippet__icon img{
+  width: 50%;
+}
+
+.weather-snippet__weather {
+  text-transform: capitalize;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .weather-app__header__title {
+    font-size: 35px;
+  }
+
+  .weather-app__snippets {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+
+  .weather-snippet {
+    flex-grow: 1;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border-bottom: solid #012b3d 1px;
+  }
+
+  .weather-snippet__date {
+  }
+
+  .weather-snippet__temps__high {
+  }
+
+  .weather-snippet__temps__low {
+  }
+
+  .weather-snippet__icon img{
+    width: 25%;
+  }
+}
+
+.temperature-unit-selector {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  color: black;
+  background-color: white;
+  border-radius: 10px;
+  margin: auto;
+}
+
+.temperature-unit-selector__option {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.temperature-unit-selector__selected {
+  background-color: #ff7913;
+  cursor: default;
+  border-radius: 10px;
+}
