@@ -29,10 +29,8 @@ class WeatherApp extends React.Component {
   }
 
   fetchForecast() {
-    const currentHour = new Date().getHours();
-    // Get 32 results for next 4 days (4 * 8) and add results for remainder of today (24 - now) / 3
-    const count = Math.round(32 + (24 - currentHour) / 3);
-    const url = `${URL}&units=${this.state.metric ? 'metric' : 'imperial'}&cnt=${count}`;
+    const unit = this.state.metric ? 'metric' : 'imperial';
+    const url =`${URL}&units=${unit}&cnt=${this.getResultCount()}`;
 
     fetch(url)
       .then(results => results.json())
@@ -42,6 +40,15 @@ class WeatherApp extends React.Component {
         const dayToDetails = hourlyResults.reduce(this.parseHourlyToDaily, {});
         this.setState(() => ({ dayToDetails, loading: false }));
       });
+  }
+
+  getResultCount() {
+    const hoursLeftToday = 24 - new Date().getHours();
+    const resultsLeftToday = hoursLeftToday % 3 === 0 ?
+        hoursLeftToday / 3 :
+        Math.floor((hoursLeftToday - hoursLeftToday % 3) / 3);
+    // Get 32 results for next 4 days (4 * 8) and add results for remainder of today
+    return 32 + resultsLeftToday;
   }
 
   // Takes an hourly result and assigns it to the appropriate day in the dayToDetails map
